@@ -1,0 +1,13 @@
+@mixin gradient-background($top-color, $bottom-color) {
+    background: linear-gradient(to bottom, $top-color, $top-color 35%, $bottom-color 35%) fixed no-repeat;
+}
+
+@mixin border-bottom-rounded-corners() {
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+@mixin border-top-rounded-corners() {
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}

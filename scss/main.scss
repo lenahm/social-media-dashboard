@@ -1,0 +1,328 @@
+@import 'config'; 
+@import 'functions'; 
+
+// reset default
+
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+}
+
+// main styling
+
+body {
+    font-family: 'Inter', sans-serif;
+    @include gradient-background($top-bg-dark, $bg-dark); 
+    color: $text-white-dark;
+}
+
+body.light {
+    @include gradient-background($top-bg-light, $bg-light);
+    color: $text-very-dark-blue-light; 
+}
+
+.container {
+    padding: 100px; 
+}
+
+// headings, titles, subtitles
+
+header {
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 50px;
+}
+
+h2 {
+    margin: 50px 0 30px 0; 
+}
+
+h4,
+.amount-subtitle {
+    color: $text-desaturated-blue-dark;
+}
+
+h4.light,
+.amount-subtitle.light {
+    color: $text-dark-grayish-blue-light;
+}
+
+// cards 
+
+#top-cards, 
+#bottom-cards {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background-color: $card-bg-dark;
+
+    &:hover {
+        cursor: pointer;
+        filter: brightness(130%);
+    }
+}
+
+.card.light {
+    background-color: $card-bg-light;
+
+    &:hover {
+        filter: brightness(90%);
+    }
+}
+
+// top cards 
+
+%border-shared {
+    border-top: 5px solid;
+    @include border-top-rounded-corners(); 
+}
+
+#top-cards {
+    .card-top {
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        padding: 0 20px 20px 20px;
+        @include border-bottom-rounded-corners(); 
+
+        > p:nth-child(2) {
+            font-size: 4rem;
+            font-weight: 700;
+        }
+
+        > p:nth-child(3) {
+            margin-top: -20px;
+            letter-spacing: 5px;
+        }
+    }
+
+    .card-top::before {
+        display: block;
+        content: ''; 
+        transform: translateY(-20px);
+    }
+
+    > div:nth-child(1) {
+        @extend %border-shared;
+        border-color: $facebook;
+    }
+
+    > div:nth-child(2) {
+        @extend %border-shared;
+        border-color: $twitter;
+    }
+
+    > div:nth-child(3) {
+        position: relative;
+        padding-top: 15px;
+        border-top: 5px solid transparent; 
+        @include border-top-rounded-corners(); 
+    }
+
+    > div:nth-child(3)::before {
+        position: absolute;
+        content: ''; 
+        top: 15px;
+        left: 0; 
+        width: 100%; 
+        height: 5px;
+        background: $instagram;
+        @include border-top-rounded-corners(); 
+    }
+
+    > div:nth-child(4) {
+        @extend %border-shared;
+        border-color: $youtube;
+    }
+}
+
+// bottom cards 
+
+#bottom-cards {
+    .card-bottom {
+        justify-content: space-between;
+        padding: 20px;
+        border-radius: 5px;
+
+        div {
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        > div:nth-child(1) {
+            align-items: flex-start;
+
+            p {
+                font-size: 2.5rem;
+                font-weight: 700;
+            }
+        }
+
+        > div:nth-child(2) {
+            align-items: flex-end;
+        }
+    }
+}
+
+// toggle theme switch
+
+#toggle-theme-switch {
+    align-items: center;
+    gap: 20px;
+
+    p {
+        color: $text-desaturated-blue-dark;
+        font-weight: 700;
+    }
+}
+
+#toggle-theme-switch.light {
+    p {
+        color: $text-dark-grayish-blue-light;
+    }
+}
+
+.switch {
+    display: inline-block;
+    position: relative;
+    width: 80px;
+    height: 34px;
+
+    input {
+        width: 0;
+        height: 0;
+        opacity: 0;
+    }
+}
+  
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+    background-color: $toggle-light;
+}
+  
+.slider::before {
+    position: absolute;
+    content: '';
+    height: 26px;
+    width: 26px;
+    left: 45px;
+    bottom: 4px;
+    background-color: $bg-light;
+}
+  
+input:checked + .slider,
+input:hover + .slider {
+    background: $toggle-dark;
+}
+  
+input:checked + .slider::before {
+    background-color: $bg-dark;
+}
+  
+input:checked + .slider::before {
+    transform: translateX(-35px);
+}
+  
+.slider.round {
+    border-radius: 34px;
+}
+  
+.slider.round::before {
+    border-radius: 50%;
+}
+
+// utility classes aligning
+
+.flex {
+    display: flex; 
+}
+
+.flex-row {
+    display: inline-flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.grid {
+    display: grid; 
+}
+
+// utility color-classes
+
+.facebook {
+    color: $facebook; 
+}
+
+.twitter {
+    color: $twitter; 
+}
+
+.instagram {
+    background: $instagram;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.youtube {
+    color: $youtube; 
+}
+
+.lime-green {
+    color: $lime-green;
+}
+
+.bright-red {
+    color: $bright-red; 
+}
+
+// responsive design for tablets 
+
+@media(max-width: 900px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        h4 {
+            margin-bottom: 30px;
+        }
+
+        #toggle-theme-switch {
+            align-self: flex-end;
+        }
+    }
+
+    #top-cards, 
+    #bottom-cards {
+        grid-template-columns: repeat(1, 1fr);
+    }
+}
+
+// responsive design for smartphones 
+
+@media(max-width: 400px) {
+    .container {
+        padding: 30px; 
+    }
+
+    h1 {
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+    }
+
+    h2 {
+        font-size: 1.3rem;
+    }
+}
